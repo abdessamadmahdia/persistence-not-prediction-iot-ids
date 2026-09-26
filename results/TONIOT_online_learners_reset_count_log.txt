@@ -1,0 +1,99 @@
+Time
+#
+Log Message
+10.3s	9	/kaggle/input/datasets/fadiabuzwayed/ton-iot-train-test-network/TON_IoT_Train_Test_Network.csv
+11.5s	10	River not found. Installing River without dependencies...
+17.3s	13	==============================================================================
+17.3s	14	ENVIRONMENT
+17.3s	15	==============================================================================
+17.3s	16	Python : 3.12.13
+17.3s	17	NumPy  : 2.0.2
+17.3s	18	Pandas : 2.3.3
+17.3s	19	River  : 0.26.1
+17.3s	20	River / NumPy import: OK
+17.3s	21	
+17.3s	22	
+17.3s	23	==============================================================================
+17.3s	24	STARTING EXPERIMENT
+17.3s	25	==============================================================================
+17.3s	26	
+17.3s	27	==============================================================================
+17.3s	28	LOADING DATA
+17.3s	29	==============================================================================
+20.8s	30	Raw rows: 461,043
+20.8s	31	Raw columns: 45
+26.7s	32	Duplicates removed: 11,071
+30.6s	33	Final rows: 449,972
+30.6s	34	Final features: 77
+30.6s	35	Loading/preprocessing time: 13.3s
+30.6s	36	
+30.8s	37	Rows              : 449,972
+30.8s	38	Features           : 77
+30.8s	39	Persistence W=1    : 99.80%
+30.8s	40	Evaluation starts  : 224,986
+30.8s	41	Evaluation fraction: 50.0%
+30.8s	42	
+30.8s	43	==============================================================================
+30.8s	44	METHOD 1/4: PERSISTENCE W=1
+30.8s	45	==============================================================================
+30.8s	46	Persistence done in 0.0s
+30.8s	47	
+30.8s	48	==============================================================================
+30.8s	49	METHOD 2/4: ADAPTIVE RANDOM FOREST
+30.8s	50	==============================================================================
+90.3s	51	      processed 100,000/449,972 (22.2%) | 1.0 min | drifts=0
+149.5s	52	      processed 200,000/449,972 (44.4%) | 2.0 min | drifts=0
+210.6s	53	      processed 300,000/449,972 (66.7%) | 3.0 min | drifts=0
+299.8s	54	      processed 400,000/449,972 (88.9%) | 4.5 min | drifts=0
+332.4s	55	      Finished: 449,972 rows | drifts=0 | 5.0 min
+332.4s	56	ARF done in 5.0 min
+332.4s	57	
+332.4s	58	==============================================================================
+332.4s	59	METHOD 3/4: HOEFFDING TREE + ADWIN RESET
+332.4s	60	==============================================================================
+349.3s	61	      processed 100,000/449,972 (22.2%) | 0.3 min | drifts=0
+366.0s	62	      processed 200,000/449,972 (44.4%) | 0.6 min | drifts=1
+382.8s	63	      processed 300,000/449,972 (66.7%) | 0.8 min | drifts=7
+402.2s	64	      processed 400,000/449,972 (88.9%) | 1.2 min | drifts=35
+410.1s	65	      Finished: 449,972 rows | drifts=37 | 1.3 min
+410.1s	66	HT + ADWIN done in 1.3 min
+410.1s	67	
+410.1s	68	==============================================================================
+410.1s	69	METHOD 4/4: PLAIN HOEFFDING TREE
+410.1s	70	==============================================================================
+426.9s	71	      processed 100,000/449,972 (22.2%) | 0.3 min | drifts=0
+446.6s	72	      processed 200,000/449,972 (44.4%) | 0.6 min | drifts=0
+468.9s	73	      processed 300,000/449,972 (66.7%) | 1.0 min | drifts=0
+490.9s	74	      processed 400,000/449,972 (88.9%) | 1.3 min | drifts=0
+501.9s	75	      Finished: 449,972 rows | drifts=0 | 1.5 min
+501.9s	76	HT done in 1.5 min
+501.9s	77	
+501.9s	78	
+501.9s	79	==============================================================================================================
+501.9s	80	ADAPTIVE DRIFT-METHOD BASELINE (TON-IoT / PREQUENTIAL / SECOND HALF)
+501.9s	81	==============================================================================================================
+501.9s	82	Method                        Acc   Macro-F1   Boundary     Within    Kappa-T     Bdry Δ   Drifts
+501.9s	83	--------------------------------------------------------------------------------------------------------------
+501.9s	84	Persistence W=1             99.59      99.56       0.00     100.00      0.000       0.00        0
+501.9s	85	ARF                         99.61      99.58      83.35      99.68      0.049      83.35        0
+501.9s	86	HT + ADWIN reset            99.29      99.23      64.31      99.43     -0.736      64.31       37
+501.9s	87	Hoeffding tree              96.87      96.61      91.95      96.89     -6.665      91.95        0
+501.9s	88	--------------------------------------------------------------------------------------------------------------
+501.9s	89	Evaluation rows : 224,986
+501.9s	90	Boundary rows   : 919
+501.9s	91	Within-block    : 224,067
+501.9s	92	
+501.9s	93	IMPORTANT INTERPRETATION:
+501.9s	94	  Boundary accuracy is evaluated only where the true label changes from the previous row.
+501.9s	95	  W=1 persistence has exactly 0% boundary accuracy by definition.
+501.9s	96	  Therefore boundary_delta_vs_persistence is the more meaningful boundary comparison.
+501.9s	97	  Kappa-Temporal is an OVERALL metric relative to the persistence baseline; it is NOT a boundary-only metric.
+501.9s	98	
+501.9s	99	Saved results to:
+501.9s	100	/kaggle/working/adaptive_drift_baseline.csv
+501.9s	101	
+501.9s	102	TOTAL RUNTIME: 8.1 minutes
+501.9s	103	
+501.9s	104	==============================================================================
+501.9s	105	EXPERIMENT FINISHED
+501.9s	106	==============================================================================

@@ -1,0 +1,4 @@
+condition,boundary_acc,P_attack,R_attack,P_normal,R_normal,avg_boundary_rows_per_fold
+raw X,90.2,91.3,83.8,90.1,96.7,41
+oracle@100,90.3,90.8,86.3,90.1,94.2,41
+recency_W50,92.9,92.6,95.8,93.5,90.0,41

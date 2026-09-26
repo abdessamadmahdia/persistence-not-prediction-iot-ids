@@ -1,0 +1,84 @@
+# Experiment configuration — values as used in the manuscript.
+# These are documentation of the constants hard-coded in the scripts;
+# changing this file alone does NOT change the runs.
+
+global:
+  seed: 42
+  protocol: expanding-window walk-forward
+  n_folds: 10
+  test_block_fraction: 0.10          # tau
+  train_fractions: "phi_k = 0.50 + 0.40*(k-1)/9, k = 1..10"   # ten equally spaced values
+  train_size: "round(n * phi_k)"
+  test_size: "round(n * tau), truncated at n"
+  ordering: "split by row position after a stable (mergesort) time sort: max(train ts) <= min(test ts); tied timestamps may straddle the split"
+  test_block_overlap: "~55.6% between consecutive folds; test blocks jointly cover the second half of the series"
+
+downstream_probe:
+  RandomForest:
+    n_estimators: 300
+    max_depth: 12
+    min_samples_leaf: 5
+    max_features: sqrt
+    class_weight: balanced_subsample
+    random_state: 42
+  kNN:
+    n_neighbors: 5
+
+time_regressors:
+  default_basis: "phi(u) = [u, u^2]"       # u = min-max scaled timestamp on training range
+  ridge_alpha: 1.0
+  flexible_variants:
+    - cubic B-spline (degree 3, 25 knots, constant extrapolation) + Ridge
+    - RandomForest-on-time (60 trees, depth 10, min_samples_leaf 20)
+
+relationship_representation:
+  z: "[x-a, x-b, |x-a|, |x-b|, ||x-a||_2, ||x-b||_2]"
+  dimensionality: "4d + 2"
+
+prototype_sources:
+  - static            # global training-block class means (time-invariant control)
+  - learned           # time-conditioned regressors (method under test)
+  - causal_recency    # class means among rows [i-W, i-1] (W = 50, 250, 1000); uses TRUE labels of preceding rows (label feedback); fallback: running class mean, then training-block mean
+  - leaked            # per-bin true class means; bins are timestamp quantiles over the WHOLE series (label-derived diagnostic, not a ceiling)
+  - shuffled          # prototype pairs permuted across rows (alignment control)
+
+leaked_prototype:
+  bins: [50, 100, 200]               # quantile bins over the whole series (~B/10 per test block); 100 is the default
+  missing_class_in_bin: whole-series class mean
+
+persistence_diagnostics:
+  window1_baseline: "predict previous flow's label"
+  kappa_temporal: "(acc - acc_persistent) / (1 - acc_persistent), POOLED over folds"
+  boundary_definition: "test rows where y[t] != y[t-1]"
+
+online_experiment:
+  protocol: prequential (test-then-train), second half of the stream
+  learners: [Adaptive Random Forest (ADWIN), Hoeffding Tree, Hoeffding Tree + ADWIN reset]
+  label_information: "online learners learn from every true label after predicting it; batch RF trained once on the first half"
+  kappaT_ci: "block bootstrap over whole class runs (920 runs), 2000 resamples, seed 42"
+  bootstrap_ci: 95% over boundary rows
+
+datasets:
+  TON-IoT:
+    rows_used: 449972
+    features: 77
+    subsample: none (full, de-duplicated)
+    timestamp_column: ts
+  NF-BoT-IoT-v3:
+    rows_used: 500141
+    features: 46-47
+    subsample: 500k contiguous recent time-tail
+    timestamp_column: FLOW_START_MILLISECONDS
+  NF-UNSW-NB15-v3:
+    rows_used: 494732
+    features: 47
+    subsample: 500k contiguous recent time-tail (494,732 retained after de-duplication)
+    timestamp_column: FLOW_START_MILLISECONDS
+
+preprocessing:
+  sort: chronological by real timestamp
+  dropped: [IP addresses, ports, raw timestamps]
+  categorical: one-hot (TON-IoT string fields); NF-v3 numeric codes kept numeric
+  scaling: StandardScaler fit on the training block only
+  nfv3_sanitisation: [inf/NaN -> 0, drop zero-variance columns, clip to +/-1e9]
+  deduplication: "drop_duplicates() on raw rows before dropping IDs/timestamps. TON-IoT: all raw columns incl. ts, IPs, ports, labels. NF-v3: all columns except IPV4_SRC_ADDR/IPV4_DST_ADDR (ports and ms timestamps included). Feature-level duplicates are not removed."

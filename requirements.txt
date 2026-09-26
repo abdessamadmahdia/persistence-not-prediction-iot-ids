@@ -1,0 +1,14 @@
+# Core (all main experiments). Tested with numpy 1.26 / 2.0; scripts use a
+# trapz/trapezoid compatibility shim, but keep numpy < 2.1 to match the reported runs.
+numpy>=1.24,<2.1
+pandas>=2.0
+scikit-learn>=1.3
+scipy>=1.10
+
+# Online / streaming experiments (scripts/03_online)
+# canonical run: river as installed on Kaggle at the time; drift-count re-run: river 0.26.1
+# (install river with --no-deps if pip would otherwise upgrade numpy)
+river>=0.21
+
+# Figures (scripts/05_figures)
+matplotlib>=3.7

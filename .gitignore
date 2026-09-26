@@ -1,0 +1,19 @@
+# Datasets are NOT redistributed — only the download instructions are tracked
+data/*
+!data/README.md
+*.csv.gz
+*.parquet
+!results/*.csv
+
+outputs/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+*.log
+.DS_Store
+.vscode/
+.idea/

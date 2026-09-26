@@ -1,0 +1,4 @@
+oracle_bins_B,oracle_macro_f1,oracle_boundary_acc,raw_boundary_acc_ref
+50,91.34,72.85,79.47
+100,96.50,59.53,79.47
+200,97.56,67.58,79.47

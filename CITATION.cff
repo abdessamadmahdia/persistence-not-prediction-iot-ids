@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+title: "Persistence, Not Prediction: Label Autocorrelation Confounds Temporal Evaluation of Flow-Based Network Intrusion Detection — reproducibility package"
+message: "If you use this code, please cite the accompanying paper."
+authors:
+  - family-names: "Mahdia"
+    given-names: "Abdessamad"
+  - family-names: "Tazi"
+    given-names: "El Bachir"
+version: "1.1.0"
+license: MIT
+repository-code: "https://github.com/abdessamadmahdia/persistence-not-prediction-iot-ids"

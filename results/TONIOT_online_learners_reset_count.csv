@@ -1,0 +1,5 @@
+method,accuracy,macro_f1,boundary_acc,within_acc,kappa_temporal,drift_or_reset_count,note
+persistence W=1,99.59,99.56,0.00,100.00,0.000,0,
+ARF,99.61,99.58,83.35,99.68,0.049,,ARF internal drift detections not counted (counter only active for the ADWIN-reset tree)
+HT + ADWIN reset,99.29,99.23,64.31,99.43,-0.736,37,resets of the Hoeffding tree triggered by ADWIN on the error stream
+Hoeffding tree,96.87,96.61,91.95,96.89,-6.665,,no drift detector
