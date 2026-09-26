@@ -1,4 +1,4 @@
-dataset,capture,full_persistence_pct,attack_ratio_pct,window1_macroF1,rawX_macroF1,oracle_macroF1,kappaT_raw,kappaT_oracle,folds,confound
-NF-UNSW-NB15-v3,interleaved,91.03,5.4,54.01,99.97,99.96,1.0,1.0,10,ABSENT
-TON-IoT,burst,99.8,35.8,99.47,77.01,96.5,-27.18,-5.43,10,SEVERE
-NF-BoT-IoT-v3,burst,99.93,99.8,82.43,88.06,88.93,-44.95,-25.98,10,SEVERE
+dataset,label_structure,full_persistence_pct,attack_ratio_pct,window1_macroF1,rawX_macroF1,oracle_macroF1,kappaT_raw,kappaT_oracle,folds,confound
+NF-UNSW-NB15-v3,interleaved,91.03,5.4,54.01,99.97,99.96,1.0,1.0,10,absent
+TON-IoT,long blocks,99.8,34.9,99.47,77.01,96.5,-27.18,-5.43,10,present
+NF-BoT-IoT-v3,long blocks,99.93,99.7,82.43,88.06,88.93,-44.95,-25.98,10,present
